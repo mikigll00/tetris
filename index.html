@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Socket.IO chat</title>
+        <style>
+        body{
+            background-color: black;
+        }
+        button{
+            height: 100px;
+            width: 100px;
+            display: inline-block;
+        }
+    </style>
+        <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+    </head>
+
+    <body>
+
+
+
+        <div style="text-align: center;">
+
+            <button id="gira_sx" value="38" style="margin-right: 250px;
+                margin-top: 30px;"><span class="iconify"
+                    data-icon="akar-icons:arrow-clockwise" data-width="50"
+                    data-height="50"></span></button>
+            <div style="display: inline-block;width: 100px; font-size: 25px;
+                font-weight: bold;
+                font-family: monospace;
+                text-align: center;
+                height: 100px;margin-right: 250px;">Score:<span id="score"></span>
+            </div>
+            <button id="gira_dx" value="38"><span class="iconify"
+                    data-icon="akar-icons:arrow-clockwise" data-width="50"
+                    data-height="50"></span></button>
+            <div>
+                <button id="sinistra" value="37" style="margin-right: 500px;
+                    margin-top: 30px;"><span class="iconify"
+                        data-icon="akar-icons:arrow-right" data-width="50"
+                        data-height="50" data-rotate="180deg"></span></button>
+                <button id="destra" value="39"><span class="iconify"
+                        data-icon="akar-icons:arrow-right" data-width="50"
+                        data-height="50"></span></button>
+            </div>
+            <button id="sotto_sx" value="40" style="margin-right: 450px;
+                margin-top: 30px;"><span class="iconify"
+                    data-icon="akar-icons:arrow-right" data-width="50"
+                    data-height="50" data-rotate="90deg"></span></button>
+            <button id="sotto_dx" value="40"><span class="iconify"
+                    data-icon="akar-icons:arrow-right" data-width="50"
+                    data-height="50" data-rotate="90deg"></span></button>
+
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+        var socket = io();
+
+        var gira_sx = document.getElementById('gira_sx');
+        var gira_dx = document.getElementById('gira_dx');
+        var sinistra = document.getElementById('sinistra');
+        var destra = document.getElementById('destra');
+        var sotto_sx = document.getElementById('sotto_sx');
+        var sotto_dx = document.getElementById('sotto_dx');
+        var score = document.getElementById('score');
+        score.innerHTML = "0";
+
+
+
+        gira_sx.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (gira_sx.value) {
+                socket.emit('valore asx', gira_sx.value);
+            }
+
+        });
+        gira_dx.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (gira_dx.value) {
+                socket.emit('valore adx', gira_dx.value);
+            }
+
+        });
+
+        sinistra.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (sinistra.value) {
+                socket.emit('valore b', sinistra.value);
+            }
+
+        });
+        destra.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (destra.value) {
+                socket.emit('valore c', destra.value);
+            }
+        });
+        sotto_sx.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (sotto_sx.value) {
+                socket.emit('valore dsx', sotto_sx.value);
+            }
+        });
+        sotto_dx.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            if (sotto_dx.value) {
+                socket.emit('valore ddx', sotto_dx.value);
+            }
+        });
+
+
+        socket.on('score', (a) => {
+
+        score.innerHTML = a;
+        });
+
+
+    </script>
+    </body>
+
+</html>
